@@ -20,7 +20,7 @@ cdata.set ('PLUGIN_URI', pl_uri)
 cdata.set_quoted ('PLUGIN_URI_QUOTED', pl_uri)
 cdata.set_quoted ('PLUGIN_UI_URI_QUOTED', pl_ui_uri)
 
-plugin_lv2_dir = lv2dir / 'passthrough-gtk4.lv2'
+plugin_lv2_dir = lv2dir / 'PassthroughGtk4.lv2'
 
 config_h = configure_file (
   output: 'passthrough-config.h',
