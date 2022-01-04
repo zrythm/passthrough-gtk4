@@ -14,9 +14,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 pl_uri = 'https://www.zrythm.org/plugins/passthrough-gtk4'
+pl_ui_uri = pl_uri + '#UI'
 cdata = configuration_data ()
 cdata.set ('PLUGIN_URI', pl_uri)
 cdata.set_quoted ('PLUGIN_URI_QUOTED', pl_uri)
+cdata.set_quoted ('PLUGIN_UI_URI_QUOTED', pl_ui_uri)
 
 plugin_lv2_dir = lv2dir / 'passthrough-gtk4.lv2'
 
@@ -42,21 +44,26 @@ ui_ttl = configure_file (
   install: true,
   install_dir: plugin_lv2_dir)
 
-pl_deps = [
-  config_h,
-  cc.find_library ('m'),
-  lv2_dep,
-  gtk_dep,
-  ]
-
 # create dsp shared library
 inc = include_directories(['.'])
 dsp_lib = shared_library (
-  'PassthroughGtk4',
+  'PassthroughGtk4_dsp',
   name_prefix: '',
   sources: [ config_h, 'dsp.c' ],
   dependencies: [
     cc.find_library ('m'), lv2_dep ],
+  include_directories: inc,
+  install: true,
+  install_dir: plugin_lv2_dir,
+  c_args: common_cflags,
+  )
+
+# create ui shared library
+ui_lib = shared_library (
+  'PassthroughGtk4_ui',
+  name_prefix: '',
+  sources: [ config_h, 'ui.c' ],
+  dependencies: [ lv2_dep, gtk_dep ],
   include_directories: inc,
   install: true,
   install_dir: plugin_lv2_dir,

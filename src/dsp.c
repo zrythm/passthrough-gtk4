@@ -106,6 +106,12 @@ connect_port (
     case PASSTHROUGH_CONTROL_IN:
       self->control_in = (const float *) data;
       break;
+    case PASSTHROUGH_CV_OUT:
+      self->cv_out = (float *) data;
+      break;
+    case PASSTHROUGH_AUDIO_OUT:
+      self->audio_out = (float *) data;
+      break;
     default:
       break;
     }
