@@ -181,7 +181,7 @@ extension_data (
 }
 
 static const LV2_Descriptor descriptor = {
-  PLUGIN_URI,
+  PLUGIN_URI_QUOTED,
   instantiate,
   connect_port,
   activate,

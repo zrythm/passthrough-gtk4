@@ -1,0 +1,19 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix log:  <http://lv2plug.in/ns/ext/log#> .
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix urid: <http://lv2plug.in/ns/ext/urid#> .
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+
+<@PLUGIN_URI@#UI>
+  a ui:Gtk4UI ;
+  lv2:requiredFeature urid:map ,
+                      ui:idleInterface ;
+  lv2:optionalFeature log:log ,
+                      ui:noUserResize ;
+  lv2:extensionData ui:idleInterface ,
+                    ui:showInterface ;
+  ui:portNotification [
+    ui:plugin <@PLUGIN_URI@> ;
+    lv2:symbol "notify" ;
+    ui:notifyType atom:Blank ;
+  ] .

@@ -1,0 +1,13 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+
+<@PLUGIN_URI@>
+    a lv2:Plugin ;
+    lv2:binary <PassthroughGtk4_dsp.so> ;
+    rdfs:seeAlso <PassthroughGtk4_dsp.ttl> .
+
+<@PLUGIN_URI@#UI>
+    a ui:Gtk4UI ;
+    ui:binary <PassthroughGtk4_ui.so> ;
+    rdfs:seeAlso <PassthroughGtk4_ui.ttl> .

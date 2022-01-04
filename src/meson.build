@@ -13,14 +13,34 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+pl_uri = 'https://www.zrythm.org/plugins/passthrough-gtk4'
 cdata = configuration_data ()
-cdata.set_quoted (
-  'PLUGIN_URI',
-  'https://www.zrythm.org/plugins/passthrough-gtk4')
+cdata.set ('PLUGIN_URI', pl_uri)
+cdata.set_quoted ('PLUGIN_URI_QUOTED', pl_uri)
+
+plugin_lv2_dir = lv2dir / 'passthrough-gtk4.lv2'
 
 config_h = configure_file (
   output: 'passthrough-config.h',
   configuration: cdata)
+manifest_ttl = configure_file (
+  input: 'manifest.ttl.in',
+  output: 'manifest.ttl',
+  configuration: cdata,
+  install: true,
+  install_dir: plugin_lv2_dir)
+dsp_ttl = configure_file (
+  input: 'dsp.ttl.in',
+  output: 'PassthroughGtk4_dsp.ttl',
+  configuration: cdata,
+  install: true,
+  install_dir: plugin_lv2_dir)
+ui_ttl = configure_file (
+  input: 'ui.ttl.in',
+  output: 'PassthroughGtk4_ui.ttl',
+  configuration: cdata,
+  install: true,
+  install_dir: plugin_lv2_dir)
 
 pl_deps = [
   config_h,
@@ -32,13 +52,13 @@ pl_deps = [
 # create dsp shared library
 inc = include_directories(['.'])
 dsp_lib = shared_library (
-  'passthrough-gtk4',
+  'PassthroughGtk4',
   name_prefix: '',
   sources: [ config_h, 'dsp.c' ],
   dependencies: [
     cc.find_library ('m'), lv2_dep ],
   include_directories: inc,
   install: true,
-  install_dir: lv2dir / 'passthrough-gtk4.lv2',
+  install_dir: plugin_lv2_dir,
   c_args: common_cflags,
   )
