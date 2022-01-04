@@ -1,0 +1,6 @@
+[wrap-file]
+directory = gtk-4.6.0
+
+source_url = https://gitlab.gnome.org/GNOME/gtk/-/archive/4.6.0/gtk-4.6.0.tar.gz
+source_filename = gtk-4.6.0.tar.gz
+source_hash = c507ffd8af8498a3f5b988d946a503907c3b86db03ce25670dcfbfac031470c4
