@@ -13,7 +13,32 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-exe = executable('passthrough_gtk4', 'passthrough_gtk4.c',
-  install : true)
+cdata = configuration_data ()
+cdata.set_quoted (
+  'PLUGIN_URI',
+  'https://www.zrythm.org/plugins/passthrough-gtk4')
 
-test('basic', exe)
+config_h = configure_file (
+  output: 'passthrough-config.h',
+  configuration: cdata)
+
+pl_deps = [
+  config_h,
+  cc.find_library ('m'),
+  lv2_dep,
+  gtk_dep,
+  ]
+
+# create dsp shared library
+inc = include_directories(['.'])
+dsp_lib = shared_library (
+  'passthrough-gtk4',
+  name_prefix: '',
+  sources: [ config_h, 'dsp.c' ],
+  dependencies: [
+    cc.find_library ('m'), lv2_dep ],
+  include_directories: inc,
+  install: true,
+  install_dir: lv2dir / 'passthrough-gtk4.lv2',
+  c_args: common_cflags,
+  )
